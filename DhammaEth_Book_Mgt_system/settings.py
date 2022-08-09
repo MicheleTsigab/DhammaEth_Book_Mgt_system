@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'DhammaEth_Book_Mgt.apps.DhammaEth_Book_Mgt'
+    'DhammaEth_Book_Mgt.apps.DhammaethBookMgtConfig'
 ]
 
 MIDDLEWARE = [
