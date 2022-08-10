@@ -12,7 +12,7 @@ class Author(models.Model):
 class Book(models.Model):
     title=models.CharField(max_length=100)
     author=models.ForeignKey('Author',on_delete=models.SET_NULL, null=True)
-    cover=models.ImageField(blank=True, null=True)
+    cover=models.ImageField(upload_to='images',blank=True, null=True)
     language = models.ForeignKey('Language', on_delete=models.SET_NULL, null=True,blank=True)
     def get_absolute_url(self):
         return reverse('book-detail', args=[str(self.id)])
