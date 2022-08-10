@@ -7,7 +7,7 @@ class Author(models.Model):
     last_name = models.CharField(max_length=100)
 class Book(models.Model):
     title=models.CharField(max_length=100)
-    author=models.ManyToManyField('Author', null=True)
+    author=models.ForeignKey('Author',on_delete=models.SET_NULL, null=True)
     cover=models.ImageField(blank=True, null=True)
     language = models.ForeignKey('Language', on_delete=models.SET_NULL, null=True)
 class Admin(models.Model):
