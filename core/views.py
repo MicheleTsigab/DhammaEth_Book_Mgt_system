@@ -24,3 +24,9 @@ def index(request):
     return render(request, 'index.html', context=context)
 class BookListView(generic.ListView):
     model=Book
+class BookDetailView(generic.DetailView):
+    model=Book
+class AuthorListView(generic.ListView):
+    model=Author
+class AuthorDetailView(generic.DetailView):
+    model=Author
