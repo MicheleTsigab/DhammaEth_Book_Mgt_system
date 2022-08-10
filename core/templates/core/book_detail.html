@@ -3,10 +3,9 @@
 {% block content %}
   <h1>Title: {{ book.title }}</h1>
 
-  <p><strong>Author:</strong> <a href="">{{ book.author }}</a></p> 
+  <p><strong>Author:</strong> <a href="{{ book.author.get_absolute_url }}">{{ book.author }}</a></p> 
   
   <p><strong>Language:</strong> {{ book.language }}</p>
-  <p>{{book.cover.url}}</p>
   <img src="{{book.cover.url}}" width="100" height="50">
 
   <div style="margin-left:20px;margin-top:20px">
@@ -23,6 +22,12 @@
       
       <!-- <p><strong>Imprint:</strong> {{ copy.imprint }}</p> -->
       <p class="text-muted"><strong>Id:</strong> {{ copy.id }}</p>
+      <p class="text-muted"><strong>Status:</strong>
+      {%if copy.status %}
+       <p class="text-danger">Borrowed</p></p>
+      {% else %}<p class="text-success">Available</p>
+      {% endif %}
+        
     {% endfor %}
   </div>
 {% endblock %}

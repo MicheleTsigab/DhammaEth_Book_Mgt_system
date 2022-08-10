@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Author: {{ author}}</h1>
+
+  <div style="margin-left:20px;margin-top:20px">
+    <h4>Books</h4>
+
+    {% for copy in author.book_set.all %}
+      <hr>
+      
+      
+      <p class="text-muted"><strong>Title:</strong> <a href="{{ copy.get_absolute_url  }}">{{ copy.title }}</a></p>
+      <p class="text-muted"><strong>Status:</strong>
+      <p class="text-muted"><strong>Num of copies:</strong> {{ copy.instance_set.all.count }}</p>
+    
+        
+    {% endfor %}
+  </div>
+{% endblock %}

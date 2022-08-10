@@ -7,6 +7,8 @@ class Language(models.Model):
 class Author(models.Model):
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
+    def get_absolute_url(self):
+        return reverse('author-detail', args=[str(self.id)])
     def __str__(self):
         return self.first_name + ' '+self.last_name
 class Book(models.Model):
@@ -25,6 +27,8 @@ class Member(models.Model):
     last_name=models.CharField(max_length=40)
     phone=models.CharField(max_length=40,null=True,blank=True) 
     email=models.EmailField(null=True,blank=True)
+    def __str__(self):
+        return self.first_name + ' '+self.last_name
 class Instance(models.Model):
     """A specific copy of a Book that is actually borrow-able
     """
