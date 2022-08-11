@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from django.contrib.auth.models import User
 class Language(models.Model):
     name = models.CharField(max_length=200)
     def __str__(self):
@@ -24,7 +25,7 @@ class Book(models.Model):
         return reverse('book-detail', args=[str(self.id)])
 
 class Admin(models.Model):
-    pass
+    user=models.ForeignKey(User,on_delete=models.CASCADE)
 class Member(models.Model):
     dhamma_id=models.CharField(max_length=40,null=True,blank=True)
     first_name=models.CharField(max_length=40)
