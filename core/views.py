@@ -1,6 +1,8 @@
 from django.views import generic
 from django.shortcuts import render
 
+from core.forms import AddBookForm
+from django.urls import reverse_lazy
 # Create your views here.
 from .models import Book, Author, Instance
 
@@ -31,3 +33,8 @@ class AuthorListView(generic.ListView):
     model=Author
 class AuthorDetailView(generic.DetailView):
     model=Author
+class AddBookView(generic.CreateView):
+    model=Book
+    form_class = AddBookForm
+    template_name = 'core/add_book.html'
+    success_url = reverse_lazy('index')

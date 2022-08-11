@@ -26,6 +26,7 @@ class Book(models.Model):
 
 class Admin(models.Model):
     user=models.ForeignKey(User,on_delete=models.CASCADE)
+    #Designed to be extendable to add hierarchy of permissions in the future
 class Member(models.Model):
     dhamma_id=models.CharField(max_length=40,null=True,blank=True)
     first_name=models.CharField(max_length=40)

@@ -3,6 +3,11 @@
 {% block content %}
   <h1>Dhamma Ethiopia Library </h1>
   <p>Welcome to Dhamma Ethiopia Book Mgt!</p>
+  {% if user.is_authenticated %}
+  <li><a href="{% url 'add-book' %}">Add Book</a></li>
+  <li><a href="{% url 'login'%}?next={{request.path}}">Add Member</a></li>
+  <li><a href="{% url 'login'%}?next={{request.path}}">Lend A Book</a></li>
+  {% endif %}
   <h2>Dynamic content</h2>
   <p>The library has the following record counts:</p>
   <ul>
