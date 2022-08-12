@@ -27,7 +27,8 @@ class Book(models.Model):
         return f'{self.title} by {self.author.__str__()}'
 class Admin(models.Model):
     user=models.ForeignKey(User,on_delete=models.CASCADE)
-    #Designed to be extendable to add hierarchy of permissions in the future
+    #Added this model so as to be extendable and
+    # add hierarchy of permissions in the future
 class Member(models.Model):
     dhamma_id=models.CharField(max_length=40,null=True,blank=True)
     first_name=models.CharField(max_length=40)
@@ -48,8 +49,8 @@ class Instance(models.Model):
         ordering = ['book']
     def __str__(self):
         return f'{self.book.__str__()} copy_Id[{self.id}]'
-
-
+    def get_absolute_url(self):
+        return reverse('instance-detail', args=[str(self.id)])
 class BorrowedBook(models.Model):
     book=models.ForeignKey(Instance,on_delete=models.CASCADE)
     borrower = models.ForeignKey(Member, on_delete=models.CASCADE)

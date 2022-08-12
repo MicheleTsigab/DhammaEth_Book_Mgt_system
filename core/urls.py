@@ -10,7 +10,9 @@ urlpatterns = [
     path('author/<int:pk>',views.AuthorDetailView.as_view(),name='author-detail'),
     path('book/add',views.AddBookView.as_view(),name='add-book'),
     path('author/add',views.AddAuthorView.as_view(),name='add-author'),
-    path('member/add',views.AddMemberView.as_view(),name='add-author'),
-    path('book/lend',views.LendBookView.as_view(),name='lend-book')
+    path('member/add',views.AddMemberView.as_view(),name='add-member'),
+    path('book/lend',views.LendBookView.as_view(),name='lend-book'),
+    path('book/return',views.ReturnBookView.as_view(),name='return-book'),
+    path('instance/<int:pk>', views.InstanceDetailView.as_view(), name='instance-detail')
 ]+ static(settings.STATIC_URL, 
 document_root=settings.STATIC_ROOT)
