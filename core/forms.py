@@ -1,5 +1,7 @@
-from .models import Book
+from xmlrpc.client import DateTime
+from .models import Book, BorrowedBook, Author, Member
 from django import forms
+import datetime
 class AddBookForm(forms.ModelForm):    
     class Meta:
         model = Book
@@ -11,3 +13,21 @@ class AddBookForm(forms.ModelForm):
     # queryset=Member.objects.all(),
     # widget=forms.CheckboxSelectMultiple
     # )
+class AddAuthorForm(forms.ModelForm):    
+    class Meta:
+        model = Author
+        fields='__all__'
+class AddMemberForm(forms.ModelForm):    
+    class Meta:
+        model = Member
+        fields=['dhamma_id','first_name','last_name','phone','email']
+class DateInput(forms.DateInput):
+    input_type = 'date'
+class LendBookForm(forms.ModelForm):  
+      
+    class Meta:
+        model = BorrowedBook
+        fields=['book', 'borrower','return_date']
+        widgets = {
+            'return_date': DateInput(attrs={'min':f'{datetime.datetime.now().date()}'}),
+        }
