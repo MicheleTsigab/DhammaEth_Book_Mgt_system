@@ -1,10 +1,10 @@
 from django.views import generic
 from django.shortcuts import render
 
-from core.forms import AddBookForm
+from core.forms import AddBookForm,AddAuthorForm,AddMemberForm, LendBookForm
 from django.urls import reverse_lazy
 # Create your views here.
-from .models import Book, Author, Instance
+from .models import Book, Author, BorrowedBook, Instance, Member
 
 def index(request):
     """View function for home page of site."""
@@ -38,3 +38,18 @@ class AddBookView(generic.CreateView):
     form_class = AddBookForm
     template_name = 'core/add_book.html'
     success_url = reverse_lazy('index')
+class AddAuthorView(generic.CreateView):
+    model=Author
+    form_class = AddAuthorForm
+    template_name='core/add_author.html'
+    success_url=reverse_lazy('index')
+class LendBookView(generic.CreateView):
+    model=BorrowedBook
+    form_class=LendBookForm
+    template_name='core/lend_book.html'
+    success_url=reverse_lazy('index')
+class AddMemberView(generic.CreateView):
+    model=Member
+    form_class=AddMemberForm
+    template_name='core/add_member.html'
+    success_url=reverse_lazy('index')

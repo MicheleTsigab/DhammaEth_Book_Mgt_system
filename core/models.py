@@ -23,7 +23,8 @@ class Book(models.Model):
         ordering = ['title']
     def get_absolute_url(self):
         return reverse('book-detail', args=[str(self.id)])
-
+    def __str__(self):
+        return f'{self.title} by {self.author.__str__()}'
 class Admin(models.Model):
     user=models.ForeignKey(User,on_delete=models.CASCADE)
     #Designed to be extendable to add hierarchy of permissions in the future
@@ -42,11 +43,15 @@ class Instance(models.Model):
     """
     id = models.BigAutoField(primary_key=True)
     book=models.ForeignKey(Book,on_delete=models.CASCADE)
-    status=models.ForeignKey('BorrowedBook',on_delete=models.SET_NULL,null=True,blank=True)
+    #status=models.ForeignKey('BorrowedBook',on_delete=models.SET_NULL,null=True,blank=True)
     class Meta:
         ordering = ['book']
+    def __str__(self):
+        return f'{self.book.__str__()} copy_Id[{self.id}]'
+
+
 class BorrowedBook(models.Model):
-    #Book=models.ForeignKey(Instance,on_delete=models.CASCADE)
+    book=models.ForeignKey(Instance,on_delete=models.CASCADE)
     borrower = models.ForeignKey(Member, on_delete=models.CASCADE)
     borrowed_date=models.DateField(auto_now=True,null=True)
     return_date=models.DateField(null=True)
