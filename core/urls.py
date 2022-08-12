@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path,re_path
 from . import views
 from django.conf import settings
 from django.conf.urls.static import static
@@ -13,6 +13,10 @@ urlpatterns = [
     path('member/add',views.AddMemberView.as_view(),name='add-member'),
     path('book/lend',views.LendBookView.as_view(),name='lend-book'),
     path('book/return',views.ReturnBookView.as_view(),name='return-book'),
-    path('instance/<int:pk>', views.InstanceDetailView.as_view(), name='instance-detail')
+    path('instance/<int:pk>', views.InstanceDetailView.as_view(), name='instance-detail'),
+    re_path(
+        r'^instance-autocomplete/$'
+        ,views.InstanceAutoComplete.as_view(),name='get_instance'
+    )
 ]+ static(settings.STATIC_URL, 
 document_root=settings.STATIC_ROOT)
