@@ -1,7 +1,7 @@
 from django.views import generic
 from django.shortcuts import render
 
-from core.forms import AddBookForm,AddAuthorForm,AddMemberForm, LendBookForm, ReturnBookForm
+from core.forms import AddBookForm,AddAuthorForm,AddMemberForm, GetInstance, LendBookForm,ReturnBookForm
 from django.urls import reverse_lazy
 # Create your views here.
 from .models import Book, Author, BorrowedBook, Instance, Member
@@ -26,6 +26,9 @@ class BookListView(generic.ListView):
     paginate_by = 10
 class BookDetailView(generic.DetailView):
     model=Book
+class InstanceListView(generic.ListView):
+    model=Instance
+class InstanceFilterView()
 class InstanceDetailView(generic.DetailView):
     model=Instance
 class AuthorListView(generic.ListView):
@@ -52,9 +55,25 @@ class AddMemberView(generic.CreateView):
     form_class=AddMemberForm
     template_name='core/add_member.html'
     success_url=reverse_lazy('index')
-class ReturnBookView(generic.ListView):
+class ReturnBookView(generic.FormView):
+    
     #Should change this view to update view if lending history is a functional requirement
-    model=BorrowedBook
-    form_class=ReturnBookForm
-    template_name='core/return_book.html'
+    model=Instance
+    form_class=GetInstance
+    template_name='core/get_instance.html'
     success_url=reverse_lazy('index')
+from dal import autocomplete
+
+class InstanceAutoComplete(autocomplete.Select2QuerySetView):
+    #template='core/get_instance.html'
+    def get_queryset(self):
+        # Don't forget to filter out results depending on the visitor !
+        if not self.request.user.is_authenticated:
+            return Book.objects.none()
+
+        qs = Book.objects.all()
+
+        if self.q:
+            qs = qs.filter(id__istartswith=self.q)
+
+        return qs
