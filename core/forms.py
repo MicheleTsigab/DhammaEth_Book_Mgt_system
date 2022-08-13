@@ -1,5 +1,5 @@
 from xmlrpc.client import DateTime
-from .models import Book, BorrowedBook, Author, Member
+from .models import Book, BorrowedBook, Author, Instance, Member
 from django import forms
 import datetime
 class AddBookForm(forms.ModelForm):    
@@ -31,12 +31,27 @@ class LendBookForm(forms.ModelForm):
         widgets = {
             'return_date': DateInput(attrs={'min':f'{datetime.datetime.now().date()}'}),
         }
-from searchableselect.widgets import SearchableSelect
-class ReturnBookForm(forms.ModelForm):
+from dal import autocomplete
+class charinput(forms.CharField):
+    pass
+class GetInstance(forms.ModelForm):
+    s=AddBookForm()
     class Meta:
-        model=BorrowedBook
-        fields=['book']
-        exclude = ()
+        model = Instance
+        fields = ['id']
         widgets = {
-            'Book_Instance': SearchableSelect(model='Instance', search_field='book', limit=10)
+            's': autocomplete.ModelSelect2(url='get_instance'),
+            
         }
+
+class ReturnBookForm(autocomplete.FutureModelForm):
+    class Meta:
+        model=Instance
+        
+        fields=['book']
+        autocomplete_fields=['book']
+        #autocomplete_names = {'book': 'GetInstance'}
+        # exclude = ()
+        widgets = {
+             'book': GetInstance()
+         }
