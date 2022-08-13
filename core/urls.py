@@ -14,6 +14,7 @@ urlpatterns = [
     path('book/lend',views.LendBookView.as_view(),name='lend-book'),
     path('book/return',views.ReturnBookView.as_view(),name='return-book'),
     path('instance/<int:pk>', views.InstanceDetailView.as_view(), name='instance-detail'),
+    path('instances/', views.InstanceListView.as_view(), name='instance-list'),
     re_path(
         r'^instance-autocomplete/$'
         ,views.InstanceAutoComplete.as_view(),name='get_instance'
