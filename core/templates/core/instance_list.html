@@ -7,56 +7,48 @@
   
   
     
-<div class="card m-1 p-1">
+<div class="">
   <form  method="get">
-    <div class="row ">
-  <div class="col-sm-auto">
-    
-    <label class="form-label" for="id_id" >Id:</label>
-  </div>
-  <div class="col-sm-auto">
-    
-    <input type="number" placeholder="Book copy Id" class="form-control" name="id" step="any" id="id_id">
-    
-  </div>
-  <div class="col-sm-auto ">
-    <label class="form-label" for="id_book__title__contains">Book title:</label>
-  </div>
-  <div class="col-sm-auto">
-    <input type="text" class="form-control"  name="book__title__contains" placeholder="Book Title" id="id_book__title__contains">
-  </div>
-  
-  <div class="col-sm-auto">
-    <label for="id_borrower__first_name__contains">Borrower:</label>
-    </div>
-    <div class="col-sm-auto">
-    <input type="text" class="form-control" placeholder="first name" name="borrower__first_name__contains" id="id_borrower__first_name__contains">
-  </div>
-  <!-- <div class="col-sm-auto">
-    <label class="form-label" for="id_borrowed_date__gt">Borrowed date After:</label>
-   </div>
-   <div class="col-sm-auto">
-    <input type="text" class="form-control" name="borrowed_date__gt" id="id_borrowed_date__gt">
-  </div>
-  <div class="col-sm-auto">
-    <label class="form-label" for="id_borrowed_date__lt">Borrowed date Before:</label>
-    </div> -->
-    <!-- <div class="col-sm-auto">
-    <input type="text" class="form-control" name="borrowed_date__lt" placeholder="Borrowed date is less than:" id="id_borrowed_date__lt"> -->
-  </div>
-  
-  
-  <div class="col-sm-auto mt-1">
-    <button type="submit" class="btn btn-primary">Filter</button>
-    
-   
-  </div>
-  </div>
+    <div class="row gy-3 gx-1">
+      
+      <div class="col-9 col-xl-2">
+        <label class="visually-hidden" for="id_id">Id:</label>
+        <input type="number" placeholder="Book Id" class="form-control" name="id" step="any" id="id_id">
+      </div>
+     
+      <div class="col-9 col-xl-3">
+        <label class="visually-hidden" for="id_book__title__contains">Book title:</label>
+        <input type="text" class="form-control" name="book__title__contains" placeholder="Book Title" id="id_book__title__contains">
+      </div>
+      
+     
+        <div class="col-9 col-xl-2">
+          <label class="visually-hidden" for="id_borrower__first_name__contains">Borrower:</label>
+        <input type="text" class="form-control" placeholder="first name" name="borrower__first_name__contains" id="id_borrower__first_name__contains">
+      </div>
+      
+       <div class="col-9 col-xl-2">
+        <label class="visually-hidden" for="id_borrowed_date__gt">Borrowed date After:</label>
+        <input type="text" class="form-control" name="borrowed_date__gt" placeholder="Borrowed Date Before"id="id_borrowed_date__gt">
+      </div>
+     
+        <div class="col-9 col-xl-2">
+        <label class="visually-hidden" for="id_borrowed_date__lt">Borrowed date Before:</label>
+        <input type="text" class="form-control" name="borrowed_date__lt" placeholder="Borrowed date Before" id="id_borrowed_date__lt">
+      </div>
+      
+      
+      <div class="col-12">
+        <button type="submit" class="btn btn-primary">Filter</button>
+        
+      </div>
+      </div>
   </form>
   </div>
   
+  
  
-<table class="table table-striped">
+<table class="row table table-striped">
     <thead>
         <tr>
           <th scope="col">Id</th>
