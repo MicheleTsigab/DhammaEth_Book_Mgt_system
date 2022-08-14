@@ -44,18 +44,14 @@ class Instance(models.Model):
     """
     id = models.BigAutoField(primary_key=True)
     book=models.ForeignKey(Book,on_delete=models.CASCADE)
-    #status=models.ForeignKey('BorrowedBook',on_delete=models.SET_NULL,null=True,blank=True)
+    borrower = models.ForeignKey(Member, on_delete=models.SET_NULL,blank=True,null=True)
+    borrowed_date=models.DateField(blank=True,null=True)
+    return_date=models.DateField(blank=True, null=True)
     class Meta:
         ordering = ['book']
     def __str__(self):
         return f'{self.book.__str__()} copy_Id[{self.id}]'
     def get_absolute_url(self):
         return reverse('instance-detail', args=[str(self.id)])
-class BorrowedBook(models.Model):
-    book=models.ForeignKey(Instance,on_delete=models.CASCADE)
-    borrower = models.ForeignKey(Member, on_delete=models.CASCADE)
-    borrowed_date=models.DateField(auto_now=True,null=True)
-    return_date=models.DateField(null=True)
-    class Meta:
-        ordering = ['borrowed_date']
+
     

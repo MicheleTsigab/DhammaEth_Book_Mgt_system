@@ -1,0 +1,82 @@
+
+
+{% extends "base.html" %}
+<!-- {% load crispy_forms_tags %} -->
+{% block content %}       
+    
+  
+  
+    
+<div class="card m-1 p-1">
+  <form  method="get">
+    <div class="row ">
+  <div class="col-sm-auto">
+    
+    <label class="form-label" for="id_id" >Id:</label>
+  </div>
+  <div class="col-sm-auto">
+    
+    <input type="number" placeholder="Book copy Id" class="form-control" name="id" step="any" id="id_id">
+    
+  </div>
+  <div class="col-sm-auto ">
+    <label class="form-label" for="id_book__title__contains">Book title:</label>
+  </div>
+  <div class="col-sm-auto">
+    <input type="text" class="form-control"  name="book__title__contains" placeholder="Book Title" id="id_book__title__contains">
+  </div>
+  
+  <div class="col-sm-auto">
+    <label for="id_borrower__first_name__contains">Borrower:</label>
+    </div>
+    <div class="col-sm-auto">
+    <input type="text" class="form-control" placeholder="first name" name="borrower__first_name__contains" id="id_borrower__first_name__contains">
+  </div>
+  <!-- <div class="col-sm-auto">
+    <label class="form-label" for="id_borrowed_date__gt">Borrowed date After:</label>
+   </div>
+   <div class="col-sm-auto">
+    <input type="text" class="form-control" name="borrowed_date__gt" id="id_borrowed_date__gt">
+  </div>
+  <div class="col-sm-auto">
+    <label class="form-label" for="id_borrowed_date__lt">Borrowed date Before:</label>
+    </div> -->
+    <!-- <div class="col-sm-auto">
+    <input type="text" class="form-control" name="borrowed_date__lt" placeholder="Borrowed date is less than:" id="id_borrowed_date__lt"> -->
+  </div>
+  
+  
+  <div class="col-sm-auto mt-1">
+    <button type="submit" class="btn btn-primary">Filter</button>
+    
+   
+  </div>
+  </div>
+  </form>
+  </div>
+  
+ 
+<table class="table table-striped">
+    <thead>
+        <tr>
+          <th scope="col">Id</th>
+          <th scope="col">Title</th>
+          <th scope="col">Borrow/Return</th>
+          <th scope="col">Borrower First Name</th>
+          <th scope="col">Borrowed Date</th>
+        </tr>
+      </thead>
+    {% for obj in filter.qs %}
+            <tbody>
+              <tr>
+                <th scope="row">1</th>
+                <td>{{ obj.book}}</td>
+                <td>{{ obj.id }}</td>
+                <td>{{ obj.borrowed_date }}</td>
+              </tr>
+            </tbody>
+    {% endfor %}
+</table>
+
+{% endblock %}
+   

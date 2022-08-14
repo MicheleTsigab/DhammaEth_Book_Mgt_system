@@ -1,5 +1,5 @@
-from xmlrpc.client import DateTime
-from .models import Book, BorrowedBook, Author, Instance, Member
+
+from .models import Book, Author, Instance, Member
 from django import forms
 import datetime
 class AddBookForm(forms.ModelForm):    
@@ -26,7 +26,7 @@ class DateInput(forms.DateInput):
 class LendBookForm(forms.ModelForm):  
       
     class Meta:
-        model = BorrowedBook
+        model = Instance
         fields=['book', 'borrower','return_date']
         widgets = {
             'return_date': DateInput(attrs={'min':f'{datetime.datetime.now().date()}'}),

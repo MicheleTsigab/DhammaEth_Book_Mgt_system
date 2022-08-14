@@ -1,11 +1,11 @@
 from django.views import generic
 from django.shortcuts import render
+from .filters import InstanceFilter
 
 from core.forms import AddBookForm,AddAuthorForm,AddMemberForm, GetInstance, LendBookForm,ReturnBookForm
 from django.urls import reverse_lazy
-# Create your views here.
-from .models import Book, Author, BorrowedBook, Instance, Member
-
+from .models import Book, Author, Instance, Member
+from django_filters.views import FilterView
 def index(request):
     """View function for home page of site."""
 
@@ -28,7 +28,10 @@ class BookDetailView(generic.DetailView):
     model=Book
 class InstanceListView(generic.ListView):
     model=Instance
-class InstanceFilterView()
+class InstanceFilterView(FilterView):
+    model = Instance    
+    template_name = 'core/instance_list.html' 
+    filterset_class = InstanceFilter
 class InstanceDetailView(generic.DetailView):
     model=Instance
 class AuthorListView(generic.ListView):
@@ -46,7 +49,7 @@ class AddAuthorView(generic.CreateView):
     template_name='core/add_author.html'
     success_url=reverse_lazy('index')
 class LendBookView(generic.CreateView):
-    model=BorrowedBook
+    model=Instance
     form_class=LendBookForm
     template_name='core/lend_book.html'
     success_url=reverse_lazy('index')
