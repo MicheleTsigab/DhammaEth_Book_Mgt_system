@@ -1,22 +1,70 @@
 
-from .models import Book, Author, Instance, Member
+from dataclasses import Field
+from .models import Book, Author, Instance, Language, Member
 from django import forms
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Submit,Layout,Row,Column,Field,Button,Div,HTML
+from crispy_forms.bootstrap import Modal
+import core.urls
+
 import datetime
-class AddBookForm(forms.ModelForm):    
+from django.urls import reverse
+class MultipleInstance(forms.Form):
+    num_of_copies=forms.NumberInput()
+class AddInstanceForm(forms.ModelForm):
     class Meta:
-        model = Book
+        model=Instance
+        fields='__all__'  
+class AddLanguageForm(forms.ModelForm):
+    class Meta:
+        model=Language
         fields='__all__'
-    #     fields = ['name', 'date', 'members']    
-    # name = forms.CharField()
-    # date = forms.DateInput()    
-    # members = forms.ModelMultipleChoiceField(
-    # queryset=Member.objects.all(),
-    # widget=forms.CheckboxSelectMultiple
-    # )
-class AddAuthorForm(forms.ModelForm):    
+class AddAuthorForm(forms.ModelForm): 
+    def __init__(self,*args,**kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper=FormHelper() 
+        
+        self.helper.layout = Layout(
+            Row( 
+            Field('first_name',css_class='form-control'),
+            Field('last_name',css_class='from-control'),
+            css_class='row'
+            ))   
     class Meta:
         model = Author
-        fields='__all__'
+        fields=['first_name','last_name']
+class AddBookForm(forms.ModelForm):
+    copies=forms.CharField(widget=forms.NumberInput())
+    def __init__(self,*args,**kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper=FormHelper(self) 
+        self.helper.layout = Layout(
+            Row(     
+                Column(Field('title'),css_class='col-8 col-xl-8 '),
+                Column(Field('author',css_class="form-control"),css_class='col-8 col-xl-8'),
+                Column(
+                    # This button below uses htmx-request to get an author 
+                    # creation form and put it in a bootstrap modal body
+                    #  so as to create author without refreshing the page
+                HTML("<button type='button' class='btn btn-success mt-4' hx-get='{% url 'add-author'%}' hx-target='#add_author_form' data-bs-toggle='modal'data-bs-target='#addauthor' hx-swap='#add-author-form'>Add Author</button>")
+                    ,css_class='col-4 col-xl-4'
+                    ),
+                Column(Field('cover',css_class='form-control'),css_class='col-8 col-xl-8 col-auto'),
+                Column(Field('language',css_class='form-control'),css_class='col-8 col-xl-8 col-auto'),
+                Column(HTML("<button type='button' class='btn btn-success mt-4' hx-get='{% url 'add-lang'%}' hx-target='#add_lang_form' data-bs-toggle='modal' data-bs-target='#addlang' hx-swap='#add_lang_form'>Add Language</button>")
+                ,css_class='col-4 col-xl-4 col-auto'),
+                # easy way to add book copies by specifying the number of copies
+                Column(Field('copies', type='number', css_class='form-control',
+                 placeholder='Enter number of Copies E.g 10'),
+                 css_class='col-8 col-xl-8 col-auto'),
+                Column(Submit('submit', 'Add Book', css_class='btn btn-primary mt-2'),css_class='col-12'),
+                css_class='row align-items-center'
+            ),       
+        )
+    class Meta:
+        model = Book
+        fields=['title','author','cover','language','copies']
+        
 class AddMemberForm(forms.ModelForm):    
     class Meta:
         model = Member
@@ -27,31 +75,12 @@ class LendBookForm(forms.ModelForm):
       
     class Meta:
         model = Instance
-        fields=['book', 'borrower','return_date']
+        fields=['book', 'borrower','return_date','borrowed_date']
         widgets = {
             'return_date': DateInput(attrs={'min':f'{datetime.datetime.now().date()}'}),
-        }
-from dal import autocomplete
-class charinput(forms.CharField):
-    pass
-class GetInstance(forms.ModelForm):
-    s=AddBookForm()
-    class Meta:
-        model = Instance
-        fields = ['id']
-        widgets = {
-            's': autocomplete.ModelSelect2(url='get_instance'),
-            
+            'borrowed_date': DateInput(attrs={'value':f'{datetime.datetime.now().date()}',
+            'disabled':True})
         }
 
-class ReturnBookForm(autocomplete.FutureModelForm):
-    class Meta:
-        model=Instance
-        
-        fields=['book']
-        autocomplete_fields=['book']
-        #autocomplete_names = {'book': 'GetInstance'}
-        # exclude = ()
-        widgets = {
-             'book': GetInstance()
-         }
+
+
