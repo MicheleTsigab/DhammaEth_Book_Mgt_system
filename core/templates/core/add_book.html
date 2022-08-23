@@ -2,10 +2,50 @@
 {% load crispy_forms_tags %}
 {% block content %}
 <h2>Add Book</h2>
-<form method="post">
-  {% csrf_token %}
-  {{ form|crispy}}
-  <button type="submit" class="btn btn-primary">Add Book</button>
-</form>
+{%crispy form%}
+
+<div class="modal fade" id="addauthor" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Add Author</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form>
+        <div class="modal-body" >
+          <div id="add_author_form"></div>
+          
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="form-group btn btn-primary" hx-post="{% url 'add-author'%}" hx-target="#add_author_form" >Save changes</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="addlang" tabindex="-1" aria-labelledby="addlangmodal" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" >Add a Language</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form>
+        <div class="modal-body" >
+          <div id="add_lang_form"></div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="form-group btn btn-primary" hx-post="{% url 'add-lang'%}" hx-target="#add_lang_form" >Save changes</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </form>
+      </div>
+    </div>
+  </div>
+
+  
+
 
 {% endblock %}
