@@ -60,3 +60,4 @@ venv.bak/
 !.vscode/extensions.json 
 .history
 .launch.json
+core/static/img/book_shelf.svg
