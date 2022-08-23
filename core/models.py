@@ -16,7 +16,7 @@ class Author(models.Model):
         return self.first_name + ' '+self.last_name
 class Book(models.Model):
     title=models.CharField(max_length=100)
-    author=models.ForeignKey('Author',on_delete=models.SET_NULL, null=True)
+    author=models.ForeignKey('Author',on_delete=models.SET_NULL, null=True,blank=True)
     cover=models.ImageField(upload_to='images',blank=True, null=True)
     language = models.ForeignKey('Language', on_delete=models.SET_NULL, null=True,blank=True)
     class Meta:
