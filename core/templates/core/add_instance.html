@@ -1,0 +1,8 @@
+
+{% block content %}
+<form>
+    {% csrf_token %}
+  {{form |crispy}}  
+</form>
+
+{%endblock%}
