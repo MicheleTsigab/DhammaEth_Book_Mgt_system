@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+<h2>Available Books List</h2>
+<p>you can search</p>
+<form method="get">
+  
+  {{ filter.form | crispy}}
+  <button type='submit' class='btn btn-primary'>Filter</button>
+</form>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+          <th scope="col">Id</th>
+          <th scope="col">Title</th>
+          <th scope="col">Author</th>
+          <!-- <th scope="col">Language</th> -->
+          <th scope="col"></th>
+        </tr>
+      </thead>
+  
+    
+            <tbody>
+              {% for obj in filter.qs %}
+              <tr>
+                <!-- <th scope="row">1</th> -->
+                <td scope="row">{{ obj.id }}</td>
+                <td scope="row">{{ obj.book.title}}</td>
+                <td scope="row">{{ obj.book.author }}</td>
+                <td scope="'row"><a href="{% url 'lend-instance' obj.id%}"><button type='button' class='btn btn-primary'>Lend</button></a></td>
+              </tr>
+              {% endfor %}
+            </tbody>
+    
+</table>
+<div class="modal fade" id="lendform" tabindex="-1" aria-labelledby="lendformmodal" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" >Lend</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form>
+      <div class="modal-body" >
+        <div id="lendformbody"></div>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="form-group btn btn-primary" hx-put="{{request.path}}" >Save changes</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </form>
+    </div>
+  </div>
+</div>
+{% endblock %}
