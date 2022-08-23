@@ -9,19 +9,23 @@
  
   {% load static %}
   <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
-  {% load static %}
   <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'js/htmx.min.js' %}"></script>
+  <script>
+  document.addEventListener('htmx:configRequest',
+  (event)=>{event.detail.headers['X-CSRFToken']='{{csrf_token}}';})
+</script>
   </head>
 <body >
         
     <div class="container-fluid">
           {%block navbar%}
-          <header>
-        <nav class="navbar navbar-toggler navbar-expand-lg navbar-light bg-light">
-          <a class="navbar-brand" href="#">
-            {%load static%}
-            <img src="{%static 'img/dhamma.gif'%}" alt="" width="30" height="28" class="d-inline-block text-primary align-text-top">
-            Dhamma Ethiopia
+          
+        <nav class="navbar flex-row navbar-toggler navbar-expand-lg navbar-white bg-white">
+          <a class="navbar-brand align-items-center" href="#">
+            
+            <img src="{%static 'img/dhamma.gif'%}" alt="" width="30" height="28" class="d-inline-block text-blue align-text-top">
+            <b>Dhamma</b> Ethiopia
           </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
     
@@ -30,114 +34,113 @@
               </svg>
             </button>
             <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-              
-              <form class="d-flex justify-content-center p-2" role="search">
+               
+              <form class="d-flex offset-xl-2" role="search">
                 <input class="form-control me-auto " type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
+                <button class="btn btn-outline-primary" type="submit">Search</button>
               </form>
+              
             </div>   
+            {%if user.is_authenticated%}
+
+            <div>
+                <img src="https://github.com/mdo.png" alt="hugenerd" width="30" height="30" class="rounded-circle">
+                <span class="d-none d-sm-inline mx-1">{{ user.get_username|capfirst  }}</span>
+                <a href="{% url 'logout'%}?next={{request.path}}">
+                <button class="btn btn-primary" type="submit">Log out</button>
+            </a>
+            </div>
+            {%else%}
+            <a href="{% url 'login'%}?next={{request.path}}">
+            <button class="btn btn-primary" type="submit">Log in</button>
+            </a>
+            {%endif%}
         </nav>
-      </header>
+     
         {%endblock%}
           <div class="row flex-nowrap">
               <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-light">
                   <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
-                      <a href="/" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-                          <span class="fs-5 d-none d-sm-inline">Menu</span>
-                      </a>
+                    
                       <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
                           <li class="nav-item">
-                              <a href="#" class="nav-link align-middle px-0">
-                                  <i class="fs-4 bi-house"></i> <span class="ms-1 d-none d-sm-inline">Home</span>
+                              <a href="{% url 'index' %}" class="nav-link align-middle px-0">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house-heart-fill" viewBox="0 0 16 16">
+                                    <path d="M7.293 1.5a1 1 0 0 1 1.414 0L11 3.793V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v3.293l2.354 2.353a.5.5 0 0 1-.708.707L8 2.207 1.354 8.853a.5.5 0 1 1-.708-.707L7.293 1.5Z"/>
+                                    <path d="m14 9.293-6-6-6 6V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V9.293Zm-6-.811c1.664-1.673 5.825 1.254 0 5.018-5.825-3.764-1.664-6.691 0-5.018Z"/>
+                                  </svg><span class="ms-1 d-none d-sm-inline">Home</span>
                               </a>
                           </li>
+                         
                           <li>
                               <a href="#submenu1" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
-                                  <i class="fs-4 bi-speedometer2"></i> <span class="ms-1 d-none d-sm-inline">Dashboard</span> </a>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-book-fill" viewBox="0 0 16 16">
+                                    <path d="M8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783z"/>
+                                  </svg> <span class="ms-1 d-none d-sm-inline">Book List</span> </a>
                               <ul class="collapse show nav flex-column ms-1" id="submenu1" data-bs-parent="#menu">
                                   <li class="w-100">
-                                      <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Item</span> 1 </a>
+                                      <a href="{% url 'books' %}" class="nav-link px-0"> <span class="d-none d-sm-inline">Book Instances</span> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-journal-album" viewBox="0 0 16 16">
+                                        <path d="M5.5 4a.5.5 0 0 0-.5.5v5a.5.5 0 0 0 .5.5h5a.5.5 0 0 0 .5-.5v-5a.5.5 0 0 0-.5-.5h-5zm1 7a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3z"/>
+                                        <path d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2z"/>
+                                        <path d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z"/>
+                                      </svg> </a>
                                   </li>
                                   <li>
-                                      <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Item</span> 2 </a>
+                                      <a href="{% url 'authors' %}" class="nav-link px-0"> <span class="d-none d-sm-inline">Authors</span> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-lines-fill" viewBox="0 0 16 16">
+                                        <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-5 6s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zM11 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5zm.5 2.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1h-4zm2 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1h-2zm0 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1h-2z"/>
+                                      </svg></a>
                                   </li>
                               </ul>
                           </li>
                           <li>
-                              <a href="#" class="nav-link px-0 align-middle">
-                                  <i class="fs-4 bi-table"></i> <span class="ms-1 d-none d-sm-inline">Orders</span></a>
+                            <a href="{% url 'add-book' %}" class="nav-link px-0 align-middle">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square" viewBox="0 0 16 16">
+                                    <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+                                    <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                                  </svg><span class="ms-1 d-none d-sm-inline">Add Book</span></a>
+                        </li>
+                          <li>
+                              <a href="{% url 'lend-book' %}" class="nav-link px-0 align-middle">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart-fill" viewBox="0 0 16 16">
+                                    <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+                                  </svg><span class="ms-1 d-none d-sm-inline">Lend Book</span></a>
                           </li>
                           <li>
-                              <a href="#submenu2" data-bs-toggle="collapse" class="nav-link px-0 align-middle ">
-                                  <i class="fs-4 bi-bootstrap"></i> <span class="ms-1 d-none d-sm-inline">Bootstrap</span></a>
-                              <ul class="collapse nav flex-column ms-1" id="submenu2" data-bs-parent="#menu">
-                                  <li class="w-100">
-                                      <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Item</span> 1</a>
-                                  </li>
-                                  <li>
-                                      <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Item</span> 2</a>
-                                  </li>
-                              </ul>
-                          </li>
+                            <a href="{% url 'return-book' %}" class="nav-link px-0 align-middle">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart" viewBox="0 0 16 16">
+                                    <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+                                  </svg></i> <span class="ms-1 d-none d-sm-inline">Return Book</span></a>
+                        </li>
+                         
                           <li>
-                              <a href="#submenu3" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
-                                  <i class="fs-4 bi-grid"></i> <span class="ms-1 d-none d-sm-inline">Products</span> </a>
-                                  <ul class="collapse nav flex-column ms-1" id="submenu3" data-bs-parent="#menu">
-                                  <li class="w-100">
-                                      <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Product</span> 1</a>
-                                  </li>
-                                  <li>
-                                      <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Product</span> 2</a>
-                                  </li>
-                                  <li>
-                                      <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Product</span> 3</a>
-                                  </li>
-                                  <li>
-                                      <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Product</span> 4</a>
-                                  </li>
-                              </ul>
-                          </li>
-                          <li>
-                              <a href="#" class="nav-link px-0 align-middle">
-                                  <i class="fs-4 bi-people"></i> <span class="ms-1 d-none d-sm-inline">Customers</span> </a>
+                              <a href="{% url 'add-member' %}" class="nav-link px-0 align-middle">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-plus-fill" viewBox="0 0 16 16">
+                                    <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                                    <path fill-rule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z"/>
+                                  </svg><span class="ms-1 d-none d-sm-inline">Add Member</span> </a>
                           </li>
                       </ul>
                       <hr>
+                      {%if user.is_authenticated%}
                       <div class="dropdown pb-4">
-                          <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                          <a href="#" class="d-flex align-items-center text-blue text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
                               <img src="https://github.com/mdo.png" alt="hugenerd" width="30" height="30" class="rounded-circle">
-                              <span class="d-none d-sm-inline mx-1">loser</span>
+                              <span class="d-none d-sm-inline mx-1">{{ user.get_username |title}}</span>
                           </a>
                           <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
-                              <li><a class="dropdown-item" href="#">New project...</a></li>
-                              <li><a class="dropdown-item" href="#">Settings</a></li>
-                              <li><a class="dropdown-item" href="#">Profile</a></li>
+            
                               <li>
                                   <hr class="dropdown-divider">
                               </li>
-                              <li><a class="dropdown-item" href="#">Sign out</a></li>
+                              <li><a class="dropdown-item" href="{% url 'logout'%}?next={{request.path}}">Sign out</a></li>
                           </ul>
                       </div>
+                      {%endif%}
                   </div>
               </div>
             <div class="col-auto col-md-9 col-xl-10">
               
-                   {% block sidebar %}
-        <ul class="row sidebar-nav">
-          <li><a href="{% url 'index' %}">Home</a></li>
-          <li><a href="{% url 'books' %}">All books</a></li>
-          <li><a href="{% url 'authors' %}">All authors</a></li>
-          {% if user.is_authenticated %}
-          <li>Add Book</li>
-          <li>Lend Book</li>
-          <li>Add Member</li>
-          <li>User: {{ user.get_username }}</li>
-          <li><a href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>
-        {% else %}
-          <li><a href="{% url 'login'%}?next={{request.path}}">Login</a></li>
-        {% endif %}
-        </ul>
-        {% endblock %}
+                   
       <!-- </div> -->
       
         {% block content %}{% endblock %}
