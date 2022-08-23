@@ -53,5 +53,7 @@ class Instance(models.Model):
         return f'{self.book.__str__()} copy_Id[{self.id}]'
     def get_absolute_url(self):
         return reverse('instance-detail', args=[str(self.id)])
+    def is_borrowed(self):
+        return self.borrowed_date is not None
 
     
