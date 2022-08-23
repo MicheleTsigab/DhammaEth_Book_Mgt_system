@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Instance Detail</h2>
+<hr>
+<h5>Copy of The Book {{instance.book.title}}</h5>
+<h5>Id {{instance.id}}</h5>
+<hr>
+<h2>Status:</h2>
+{%if instance.borrower %}
+Book Borrowed <a href="{% url 'return-instance' instance.id%}"><button type='button' class='btn btn-primary'>Return</button></a>
+{%else%}
+Available <a href="{% url 'lend-instance' instance.id%}"><button type='button' class='btn btn-primary'>Lend</button>
+{%endif%}
+
+{%endblock%}
