@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+<form method="get">
+  {{ filter.form | crispy}}
+  <button type='submit' class='btn btn-primary'>Filter</button>
+</form>
+<table class="table table-striped">
+    <thead>
+        <tr>
+          <th scope="col">Id</th>
+          <th scope="col">Title</th>
+          <th scope="col">Borrower</th>
+          <th scope="col">Borrowed Date</th>
+          
+        </tr>
+      </thead>
+    {% for obj in filter.qs %}
+            <tbody>
+              <tr>
+                <td>{{ obj.id }}</td>
+                <td>{{ obj.book.title}}</td>
+                <td>{{ obj.borrower }}</td>
+                <td>{{ obj.borrowed_date }}</td>
+                <td scope="'row"><a href="{% url 'return-instance' obj.id%}"><button type='button' class='btn btn-primary'>Return</button></a></td>
+                <td></td>
+              </tr>
+            </tbody>
+    {% endfor %}
+</table>
+{%endblock%}
