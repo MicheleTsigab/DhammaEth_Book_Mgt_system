@@ -19,6 +19,7 @@ urlpatterns = [
     path('instance/<int:pk>/return',views.ReturnInstance,name='return-instance'),
     path('instance/<int:pk>', views.InstanceDetailView.as_view(), name='instance-detail'),
     path('instances/', views.InstanceFilterView.as_view(), name='instance-list'),
+    path('books/search/',views.BookFilterView.as_view(),name='search-book')
     
 ]+ static(settings.STATIC_URL, 
 document_root=settings.STATIC_ROOT)
