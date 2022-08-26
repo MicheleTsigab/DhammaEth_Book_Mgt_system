@@ -44,7 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'core.apps.CoreConfig',
     'crispy_forms',
-    # 'searchableselect',
+    'widget_tweaks',
     'django_filters',
 ]
 

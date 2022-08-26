@@ -1,5 +1,4 @@
 
-from dataclasses import Field
 from .models import Book, Author, Instance, Language, Member
 from django import forms
 from crispy_forms.helper import FormHelper
@@ -77,10 +76,21 @@ class LendBookForm(forms.ModelForm):
         model = Instance
         fields=['book', 'borrower','return_date','borrowed_date']
         widgets = {
+            'borrower':forms.widgets.Select(attrs={'required':True,'class':'col-6'}),
             'return_date': DateInput(attrs={'min':f'{datetime.datetime.now().date()}'}),
-            'borrowed_date': DateInput(attrs={'value':f'{datetime.datetime.now().date()}',
-            'disabled':True})
+            'borrowed_date': DateInput(attrs={'min':f'{datetime.datetime.now().date()}','value':f'{datetime.datetime.now().date()}',
+            'required':True})
         }
-
+class InstanceFilterForm(forms.ModelForm):
+    book__title=forms.CharField()
+    borrower__first_name=forms.CharField()
+    borrower__last_name=forms.CharField()
+    borrowed_date=forms.CharField()
+    class Meta:
+        model=Instance
+        fields=['id','book__title','borrower__first_name','borrower__last_name','borrowed_date']
+        widgets={
+            'book__title':forms.widgets.TextInput(attrs={'class':'form-control col-auto'})
+        }
 
 

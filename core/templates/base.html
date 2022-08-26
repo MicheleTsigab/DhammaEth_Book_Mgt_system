@@ -21,7 +21,7 @@
     <div class="container-fluid">
           {%block navbar%}
           
-        <nav class="navbar flex-row navbar-toggler navbar-expand-lg navbar-white bg-white">
+        <nav class="navbar flex-row navbar-toggler navbar-expand-lg navbar-dark bg-dark mx-auto">
           <a class="navbar-brand align-items-center" href="#">
             
             <img src="{%static 'img/dhamma.gif'%}" alt="" width="30" height="28" class="d-inline-block text-blue align-text-top">
@@ -34,10 +34,11 @@
               </svg>
             </button>
             <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-               
-              <form class="d-flex offset-xl-2" role="search">
-                <input class="form-control me-auto " type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-primary" type="submit">Search</button>
+              
+              <form method="get" action="{% url 'search-book' %}" class="d-flex offset-xl-2" role="search">
+                <label for="id_search" class="visually-hidden">Title contains:</label>
+                <input id="id_search" name="search" class="form-control me-auto " type="search" placeholder="Search" aria-label="Search">
+                <a href="{% url 'search-book' %}"><button class="btn btn-outline-primary" type="submit">Search</button></a>
               </form>
               
             </div>   
@@ -147,20 +148,23 @@
         <!-- <div class="col-sm-2"> -->
         {% block pagination %}
         {% if is_paginated %}
-            <div class="pagination">
-                <span class="page-links">
-                    {% if page_obj.has_previous %}
-                        <a href="{{ request.path }}?page={{ page_obj.previous_page_number }}">previous</a>
-                    {% endif %}
-                    <span class="page-current">
-                        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
-                    </span>
-                    {% if page_obj.has_next %}
-                        <a href="{{ request.path }}?page={{ page_obj.next_page_number }}">next</a>
-                    {% endif %}
-                </span>
-            </div>
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center">
+              
+              <li class="{% if page_obj.has_previous %}page-item {%else%} page-item disabled {%endif%}">
+                <a class="page-link" href="{% if page_obj.has_previous %}{{ request.path }}?page={{ page_obj.previous_page_number }}{% endif %}">Previous</a>
+              </li>
+              <li class="page-item active">
+              <a class="page-link" href="#">
+              {{ page_obj.number }} </a>
+              </li>
+              <li class="{% if page_obj.has_next %}page-item{%else%} page-item disabled {%endif%}">
+                <a class="page-link"  href="{% if page_obj.has_next %}{{ request.path }}?page={{ page_obj.next_page_number }}{% endif %}">Next</a>
+              </li>
+              </ul>
+          </nav>
         {% endif %}
+      
       {% endblock %}
       </div>
     </div>
