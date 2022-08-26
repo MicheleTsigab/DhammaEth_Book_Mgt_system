@@ -3,9 +3,12 @@
 {% block content %}
 <h2>Lend A Book</h2>
 <form method="post">
-  {% csrf_token %}
+ 
+    {% csrf_token %}
   {{ form|crispy}}
   <button type="submit" class="btn btn-primary mt-3">Lend A Book</button>
+
+
 </form>
 
 {% endblock %}
