@@ -22,7 +22,8 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
-    
+    #below path is temporary as placeholder untill the main index page is added
+    path('',include('core.urls')),
     path('library/',include('core.urls')),
     
 ]
