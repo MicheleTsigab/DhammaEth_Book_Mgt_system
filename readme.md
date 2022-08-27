@@ -19,7 +19,7 @@
     <br />
     <!-- <a href="https://github.com/micheletsigab/DhammaEth_Book_Mgt_system">View Demo</a> -->
     ·
-    <a href="https://github.com/micheletsigab//issues">Report Bug</a>
+    <a href="https://github.com/micheletsigab/DhammaEth_Book_Mgt_system/issues">Report Bug</a>
     ·
     <a href="https://github.com/micheletsigab/DhammaEth_Book_Mgt_system/issues">Request Feature</a>
   </p>
