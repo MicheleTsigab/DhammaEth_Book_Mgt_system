@@ -2,19 +2,11 @@
 <a name="readme-top"></a>
 
 
-
-[![Stargazers][stars-shield]][stars-url]
-[![Issues][issues-shield]][issues-url]
-[![MIT License][license-shield]][license-url]
-[![LinkedIn][linkedin-shield]][linkedin-url]
-
-
-
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
   <a href="https://github.com/micheletsigab/DhammaEth_Book_Mgt_system">
-    <img src="https://github.com/micheletsigab/DhammaEth_Book_Mgt_system/core/static/img/dhamma.gif" alt="Logo" width="80" height="80">
+    <img src="core/static/img/dhamma.gif" alt="Logo" width="80" height="80">
   </a>
 
   <h3 align="center">Dhamma Ethiopia Library Management</h3>
@@ -22,7 +14,7 @@
   <p align="center">
     An app that helps manage book inventory.
     <br />
-    <a href="https://github.com/micheletsigab/DhammaEth_Book_Mgt_system"><strong>Explore the docs »</strong></a>
+    <a href="readme.md"><strong>Explore the docs »</strong></a>
     <br />
     <br />
     <!-- <a href="https://github.com/micheletsigab/DhammaEth_Book_Mgt_system">View Demo</a> -->
@@ -66,7 +58,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Book Filter][Book-filter-screenshot]](https://github.com/micheletsigab/DhammaEth_Book_Mgt_system/Documentation/images/filter_books.png)
+[![Book Filter][Book-filter-screenshot]](Documentation/images/filter_books.png)
 
 This project is intended to be used by a librarian clerk to manage books with a simple UI to allow them to lend,see returned books as well as add Members for whom it can be lent.
 
@@ -128,8 +120,10 @@ There are two ways you can setup this project.1. using the dockerfile 2. using p
  ``` 
 <!-- USAGE EXAMPLES -->
 ## Usage
-[![Add Book][Book-add-screenshot]](https://github.com/micheletsigab/DhammaEth_Book_Mgt_system/Documentation/images/add_book.png)
-[![Add Author][Book-add-screenshot]](https://github.com/micheletsigab/DhammaEth_Book_Mgt_system/Documentation/images/add_author.png)
+
+[![Add Book][Book-add-screenshot]](Documentation/images/add_book.png)
+
+[![Add Author][Book-add-screenshot]](Documentation/images/add_author.png)
 
 1. run 
 ```sh
@@ -189,22 +183,9 @@ Distributed under the MIT License. See `license.txt` for more information.
 
 Michele Tsigab - [LinkedIn](https://linkedin.com/in/micheletsigab) - micheletsigab@gmail.com
 
-Project Link: [https://github.com/micheletsigab/DhammaEth_Book_Mgt_system](https://github.com/your_username/repo_name)
+Project Link: [https://github.com/micheletsigab/DhammaEth_Book_Mgt_system](https://github.com/micheletsigab/DhammaEth_Book_Mgt_system)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 <!-- ACKNOWLEDGMENTS -->
 <!-- ## Acknowledgments -->
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-<!-- MARKDOWN LINKS & IMAGES -->
-<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/micheletsigab/DhammaEth_Book_Mgt_system.svg?style=for-the-badge
-[contributors-url]: https://github.com/micheletsigab/DhammaEth_Book_Mgt_system/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/micheletsigab/DhammaEth_Book_Mgt_system.svg?style=for-the-badge
-[forks-url]: https://github.com/micheletsigab/DhammaEth_Book_Mgt_system/network/members
-[stars-shield]: https://img.shields.io/github/stars/micheletsigab/DhammaEth_Book_Mgt_system.svg?style=for-the-badge
-[stars-url]: https://github.com/micheletsigab/DhammaEth_Book_Mgt_system/stargazers
-[issues-shield]: https://img.shields.io/github/issues/micheletsigab/DhammaEth_Book_Mgt_system.svg?style=for-the-badge
-[issues-url]: https://github.com/micheletsigab/DhammaEth_Book_Mgt_system/issues
-[license-url]: https://github.com/micheletsigab/DhammaEth_Book_Mgt_system/license.txt
-[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: https://linkedin.com/in/micheletsigab
