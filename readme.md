@@ -57,8 +57,8 @@
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
-
-[![Book Filter][Book-filter-screenshot]](Documentation/images/filter_books.png)
+### Book Filter View Demo
+<img src="Documentation/images/filter_books.png" alt="Filter_book_screenshot">
 
 This project is intended to be used by a librarian clerk to manage books with a simple UI to allow them to lend,see returned books as well as add Members for whom it can be lent.
 
@@ -121,9 +121,9 @@ There are two ways you can setup this project.1. using the dockerfile 2. using p
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-[![Add Book][Book-add-screenshot]](Documentation/images/add_book.png)
+<img src="Documentation/images/add_book.png" alt="Filter_book_screenshot">
 
-[![Add Author][Book-add-screenshot]](Documentation/images/add_author.png)
+<img src="Documentation/images/add-author.png" alt="Filter_book_screenshot">
 
 1. run 
 ```sh
