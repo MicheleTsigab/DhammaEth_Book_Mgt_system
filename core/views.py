@@ -1,19 +1,26 @@
 from django.db.models import Q
+from django.urls import reverse_lazy
 from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render,get_object_or_404
-from .filters import InstanceFilter,AvailableBooksFilter,BookFilter
-from core.forms import *
-from django.urls import reverse_lazy
-from .models import Book, Author, Instance, Language, Member
 from django_filters.views import FilterView
+from core.forms import (
+    MultipleInstance,
+    AddBookForm,
+    AddAuthorForm,
+    AddMemberForm,
+    AddLanguageForm,
+    LendBookForm
+)
+from .filters import InstanceFilter,AvailableBooksFilter,BookFilter
+
+from .models import Book, Author, Instance, Language, Member
+
 def index(request):
     """View function for home page of site."""
-    # Generate counts of some of the main objects
     num_books = Book.objects.all().count()
     num_instances = Instance.objects.all().count()
-
     num_authors = Author.objects.count()
 
     context = {
@@ -72,12 +79,11 @@ class AddLanguageView(LoginRequiredMixin,generic.CreateView):
     success_url=reverse_lazy('index')
 class InstanceFilterView(FilterView):
     model = Instance    
-    template_name = 'core/instance_list.html' 
+    template_name = 'core/instance_list.html'
     filterset_class = InstanceFilter
-    
 class BookFilterView(FilterView):
     model = Book    
-    template_name = 'core/book_list.html' 
+    template_name = 'core/book_list.html'
     filterset_class = BookFilter
     context_object_name="book_list"
     paginate_by=10
@@ -96,19 +102,23 @@ class BorrowedBookView(LoginRequiredMixin,FilterView):
     context_object_name = "instances"
     paginate_by=10
 class LendInstance(LoginRequiredMixin,generic.UpdateView):
+    """Book Lending View
+    """
     model=Instance
     form_class=LendBookForm
     template_name='core/lend_book.html'
 
 @login_required
-def ReturnInstance(request,pk):
-   instance=get_object_or_404(Instance, pk=pk)
-   instance.borrower=None
-   instance.borrowed_date=None
-   instance.return_date=None
-   instance.save()
-   context={
+def return_instance(request,pk):
+    """Handles a get request of returning books
+    """
+    instance=get_object_or_404(Instance, pk=pk)
+    instance.borrower=None
+    instance.borrowed_date=None
+    instance.return_date=None
+    instance.save()
+    context={
     'instance':instance,
     'status':'returned'
-   }
-   return render(request, 'core/instance_detail.html', context=context)
+    }
+    return render(request, 'core/instance_detail.html', context=context)

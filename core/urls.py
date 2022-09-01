@@ -1,7 +1,8 @@
-from django.urls import path,re_path
-from . import views
+from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
+from . import views
+
 urlpatterns = [
     path('', views.index, name='index'),
     path('books/', views.BookListView.as_view(), name='books'),
@@ -16,10 +17,8 @@ urlpatterns = [
     path('book/lend',views.AvailableBookView.as_view(),name='lend-book'),
     path('book/return',views.BorrowedBookView.as_view(),name='return-book'),
     path('instance/<int:pk>/lend',views.LendInstance.as_view(),name='lend-instance'),
-    path('instance/<int:pk>/return',views.ReturnInstance,name='return-instance'),
+    path('instance/<int:pk>/return',views.return_instance,name='return-instance'),
     path('instance/<int:pk>', views.InstanceDetailView.as_view(), name='instance-detail'),
     path('instances/', views.InstanceFilterView.as_view(), name='instance-list'),
-    path('books/search/',views.BookFilterView.as_view(),name='search-book')
-    
-]+ static(settings.STATIC_URL, 
-document_root=settings.STATIC_ROOT)
+    path('books/search/',views.BookFilterView.as_view(),name='search-book')   
+]+static(settings.STATIC_URL,document_root=settings.STATIC_ROOT)

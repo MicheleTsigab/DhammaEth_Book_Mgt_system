@@ -2,7 +2,6 @@
 import django_filters
 from django import forms
 from .models import  Book, Instance
-from .forms import InstanceFilterForm
 class DateInput(forms.DateInput):
     input_type = 'date'
 
