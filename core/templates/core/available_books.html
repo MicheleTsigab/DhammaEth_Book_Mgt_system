@@ -34,7 +34,7 @@
                 <td scope="row">{{ obj.id }}</td>
                 <td scope="row">{{ obj.book.title}}</td>
                 <td scope="row">{{ obj.book.author }}</td>
-                <td scope="'row"><a href="{% url 'lend-instance' obj.id%}"><button type='button' class='btn btn-primary'>Lend</button></a></td>
+                <td scope="row"><a href="{% url 'lend-instance' obj.id%}"><button type='button' class='btn btn-primary'>Lend</button></a></td>
               </tr>
               {% endfor %}
             </tbody>
