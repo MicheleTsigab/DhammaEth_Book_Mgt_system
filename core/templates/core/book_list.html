@@ -4,13 +4,24 @@
 
   <h1>Book List</h1>
   {% if book_list %}
-  <ul>
+ <div class="row">
     {% for book in book_list %}
-      <li>
-        <a href="{{ book.get_absolute_url }}">{{ book.title }}</a> ({{book.author}})
-      </li>
+    
+      <div class=" m-3 card p-0"  style="width: 14rem;">
+        {%if book.cover%}
+        <img src="{{book.cover.url}}" width="25" height="200" class="card-img-top" alt="Fissure in Sandstone"/>
+        {%else%}
+        {% load static %}
+        <img src="{% static 'img/default_cover.png' %}"   width="25" height="200"  class="card-img-top" alt="{{book.title}}"/>
+        {%endif%}
+        <div class="card-body">
+          <h5 class="card-title">{{ book.title }}</h5>
+          <p class="card-text">{{book.author}}</p>
+          <a href="{{ book.get_absolute_url }}" class="btn btn-primary">View</a>
+        </div>
+      </div>
     {% endfor %}
-  </ul>
+    
   {% else %}
     <p>There are no books in the library.</p>
   {% endif %}
